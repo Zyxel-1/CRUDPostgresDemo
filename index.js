@@ -25,7 +25,7 @@ const client = new Client({
 async function createPlayground() {
   console.log('***********Creating Table');
   const query =
-    "CREATE TABLE playground (equip_id serial PRIMARY KEY,type varchar (50) NOT NULL, color varchar (25) NOT NULL,location varchar(25) check (location in ('north', 'south', 'west', 'east', 'northeast', 'southeast', 'southwest', 'northwest')),install_date date);";
+    "CREATE TABLE playground (equip_id serial PRIMARY KEY,type varchar (100) NOT NULL, color varchar (25) NOT NULL,location varchar(25) check (location in ('north', 'south', 'west', 'east', 'northeast', 'southeast', 'southwest', 'northwest')),install_date date);";
   try {
     const result = await pool.query(query);
     console.log(result);
@@ -33,10 +33,10 @@ async function createPlayground() {
     console.log(`\n(!) An error has occurred: ${err}\n`);
   }
 }
-async function insertData() {
+async function insertData(type, color, location) {
+  const date = new Date();
   console.log('***********Inserting Table');
-  const query =
-    "INSERT INTO playground (type, color, location, install_date) VALUES ('slide', 'blue', 'south', '2017-04-28');";
+  const query = `INSERT INTO playground (type, color, location, install_date) VALUES ('${type}', '${color}', '${location}', '${date.getMonth()}-${date.getDate()}-${date.getFullYear()}');`;
   try {
     const result = await pool.query(query);
     console.log(result);
@@ -76,13 +76,17 @@ async function app() {
     console.log('\t4) Delete Table');
     console.log('\t5) Exit');
     const option = readlineSync.question('Select an option: ');
-    // console.clear();
     switch (option) {
       case '1':
         await createPlayground();
         break;
       case '2':
-        await insertData();
+        const type = readlineSync.question('Type a playground type: ');
+        const color = readlineSync.question('Type a color: ');
+        const location = readlineSync.question(
+          'Select a location [north, south, west, east, northeast, southeast, southwest, northwest]: '
+        );
+        await insertData(type, color, location);
         break;
       case '3':
         await readData();
@@ -99,7 +103,4 @@ async function app() {
     }
   }
 }
-// client.connect();
 app();
-// createPlayground();
-// client.end();
