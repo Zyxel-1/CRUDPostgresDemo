@@ -42,9 +42,9 @@ Connecting pgAdmin to your Postgress server can be found [here](http://www.postg
 
 ## Running the project
 
-* Run ```bash npm install ```
+* Run ```npm install ```
 * Create a '.env' file in the root directory and store the necessary information for node to connect to Postgress. (check out the .env.default file for a base template on what you need)
-* Run ```bash npm start```
+* Run ``` npm start```
 
 ## Usage
 

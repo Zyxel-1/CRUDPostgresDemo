@@ -70,28 +70,24 @@ async function app() {
   let continueLoop = true;
   while (continueLoop) {
     console.log('Simple Postgress node app ');
-    console.log('1) Create Table');
-    console.log('2) Insert Data');
-    console.log('3) Read Data');
-    console.log('4) Delete Table');
-    console.log('5) Exit');
+    console.log('\t1) Create Table');
+    console.log('\t2) Insert Data');
+    console.log('\t3) Read Data');
+    console.log('\t4) Delete Table');
+    console.log('\t5) Exit');
     const option = readlineSync.question('Select an option: ');
     // console.clear();
     switch (option) {
       case '1':
-        console.log('option 1 was choosen');
         await createPlayground();
         break;
       case '2':
-        console.log('option 2 was choosen');
         await insertData();
         break;
       case '3':
-        console.log('option 3 was choosen');
         await readData();
         break;
       case '4':
-        console.log('option 4 was choosen');
         await deleteTable();
         break;
       case '5':
@@ -99,7 +95,7 @@ async function app() {
         continueLoop = false;
         break;
       default:
-        console.log('Not an option');
+        console.log('Not an option.');
     }
   }
 }
